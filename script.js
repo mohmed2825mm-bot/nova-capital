@@ -43,7 +43,7 @@ document.querySelectorAll(".nav-links a").forEach(link => {
 
 
 // =========================
-// CONTACT FORM
+// CONTACT FORM → WHATSAPP
 // =========================
 
 const contactForm = document.getElementById("contactForm");
@@ -54,15 +54,52 @@ contactForm.addEventListener("submit", function(event) {
     event.preventDefault();
 
     const name = document.getElementById("name").value.trim();
+    const email = document.getElementById("email").value.trim();
+    const message = document.getElementById("message").value.trim();
 
-    if (name === "") {
-        formMessage.textContent = "Please enter your name.";
+    if (name === "" || email === "" || message === "") {
+
+        formMessage.textContent =
+            "Please complete all fields.";
+
         return;
     }
 
-    formMessage.textContent =
-        "Thank you, " + name + ". Your message has been received.";
 
+    // WhatsApp number
+    const whatsappNumber = "201271435736";
+
+
+    // Message sent to WhatsApp
+    const whatsappMessage =
+        "Hello NOVA Capital,%0A%0A" +
+        "Name: " + encodeURIComponent(name) + "%0A" +
+        "Email: " + encodeURIComponent(email) + "%0A%0A" +
+        "Project Details:%0A" +
+        encodeURIComponent(message);
+
+
+    // WhatsApp URL
+    const whatsappURL =
+        "https://wa.me/" +
+        whatsappNumber +
+        "?text=" +
+        whatsappMessage;
+
+
+    // Open WhatsApp
+    window.open(
+        whatsappURL,
+        "_blank"
+    );
+
+
+    // Success message
+    formMessage.textContent =
+        "Opening WhatsApp...";
+
+
+    // Clear form
     contactForm.reset();
 
 });
